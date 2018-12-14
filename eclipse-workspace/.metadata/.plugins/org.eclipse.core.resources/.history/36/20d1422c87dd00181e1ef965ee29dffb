@@ -1,0 +1,9 @@
+package StockHigh;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class StockReducerextends extends Reducer<Text, IntWritable,Text, IntWritable> {
+
+}

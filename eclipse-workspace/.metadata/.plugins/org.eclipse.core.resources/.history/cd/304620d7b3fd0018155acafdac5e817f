@@ -1,0 +1,5 @@
+package numberOfFlightsPerAirline.FlightsPerAirline;
+
+public class AirlineReducer extends Reducer<Text, IntWritable,Text, IntWritable>{
+
+}

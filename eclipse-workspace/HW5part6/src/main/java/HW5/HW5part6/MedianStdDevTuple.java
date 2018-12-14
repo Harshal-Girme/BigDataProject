@@ -1,0 +1,58 @@
+package HW5.HW5part6;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+
+import org.apache.hadoop.io.Writable;
+
+public class MedianStdDevTuple implements Writable {
+
+	
+    float median;
+    double stdDev;
+    
+    
+    public MedianStdDevTuple(int median, double stdDev) {
+        super(); 
+        this.median = median;
+        this.stdDev = stdDev;
+    }
+
+    public MedianStdDevTuple() {
+        super();
+    }
+
+    public Float getMedian() {
+        return median;
+    }
+
+    public void setMedian(float median) {
+        this.median = median;
+    }
+
+    public double getStdDev() {
+        return stdDev;
+    }
+
+    public void setStdDev(double stdDev) {
+        this.stdDev = stdDev;
+    }
+
+    
+    public void write(DataOutput d) throws IOException {
+       d.writeFloat(median);
+       d.writeDouble(stdDev);
+    }
+
+
+    public void readFields(DataInput di) throws IOException {
+        median = di.readFloat();
+        stdDev = di.readDouble();
+    }
+    
+    @Override
+    public String toString() {
+        return "median=" + median + ", stdDev=" + stdDev;
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.jobcontrol.Job"/>
+<fullyQualifiedTypeName name="wordCountDemo.WordCountMapper"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.Job"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.output.TextOutputFormat"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="wordCountDemo2.WordCountMapper"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.Reducer"/>
+<fullyQualifiedTypeName name="wordCountDemo2.WordCountReducer"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.input.FileInputFormat"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.output.FileOutputFormat"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.fs.Path"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.Mapper"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.LongWritable"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.FlightsPerAirline.AirlineMapper"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.FlightsPerAirline.AirlineReducer"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.input.TextInputFormat"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.IntWritable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.Text"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.NullWritable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.FileInputFormat"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.InnerJoin.RouteMapper"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.InnerJoin.AirlineMapper"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.InnerJoin.AirlineRouteReducer"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.top30.BusiestSourceAirportsMapper1"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.top30.BusiestSourceAirportsReducer1"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.top30.BusiestSourceAirportsMapper2"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.top30.BusiestSourceAirportsReducer2"/>
+<fullyQualifiedTypeName name="numberOfFlightsPerAirline.top30.BusiestSourceAirportsCustomWritable"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,8 @@
+package FixedLength;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class FixedReducer extends Reducer<IntWritable,IntWritable,IntWritable,IntWritable>{
+
+}

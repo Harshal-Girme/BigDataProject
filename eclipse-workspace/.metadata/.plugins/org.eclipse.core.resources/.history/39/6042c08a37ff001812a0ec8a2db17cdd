@@ -1,0 +1,5 @@
+package numberOfFlightsPerAirline.Binning;
+
+public class BinningMapper {
+
+}

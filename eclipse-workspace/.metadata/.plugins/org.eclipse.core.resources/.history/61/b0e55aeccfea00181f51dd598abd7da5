@@ -1,0 +1,5 @@
+package HW.homework;
+
+public class NYSEWritable implements Writable{
+
+}

@@ -1,0 +1,77 @@
+package HW5.HW5part6;
+
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SortedMapWritable;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.io.FloatWritable;
+
+
+public class MMedianreducer extends Reducer<IntWritable, SortedMapWritable, IntWritable, MedianStdDevTuple> {
+	TreeMap<Float,Long> movieMap = new TreeMap();
+	MedianStdDevTuple result = new MedianStdDevTuple();
+   @Override
+   public void reduce(IntWritable key, Iterable<SortedMapWritable> values, Context ctx) throws IOException, InterruptedException{
+      movieMap.clear();
+       double sum = 0.0;
+      long totalCount = 0;
+      double avg = 0.0;
+      float median;
+      double sumOfSquares = 0.0f;
+      for(SortedMapWritable val: values){
+          for(Entry<WritableComparable, Writable> entry: val.entrySet()){
+              float rating = ((FloatWritable)entry.getKey()).get();
+              long count = ((IntWritable)entry.getValue()).get();
+              sum += rating * count;
+              totalCount += count;
+              Long ratingCountFromTreeMap = movieMap.get(rating);
+            if(ratingCountFromTreeMap == null) {
+              movieMap.put(rating, count);
+            }else {
+              movieMap.put(rating, ratingCountFromTreeMap + count);
+            }
+          }
+          val.clear();
+          			
+      }
+       // calculate median
+       long medianIndex = totalCount / 2l;
+       long prevRatingCount = 0;
+       long ratingCount = 0;
+       float prevRating = 0.0f;
+
+       for (Entry<Float,Long> entry : movieMap.entrySet()) {
+
+           ratingCount = prevRatingCount + entry.getValue();
+
+           if (prevRatingCount <= medianIndex && medianIndex < ratingCount) {
+
+               if (totalCount % 2 == 0 && prevRatingCount == medianIndex) {
+                   median = (float) (((entry.getKey() + prevRating)) / 2);
+                   result.setMedian(median);
+               } else {
+                   result.setMedian(entry.getKey());
+               }
+               break;
+           }
+           prevRatingCount = ratingCount;
+           prevRating = entry.getKey();
+       }
+      
+      avg = sum/totalCount;
+      
+       for (Entry<Float, Long> entry : movieMap.entrySet()) {
+           sumOfSquares += (entry.getKey() - avg) * (entry.getKey() - avg) * entry.getValue();
+       }
+       double stdDev = Math.sqrt(sumOfSquares / (totalCount - 1));
+       result.setStdDev(stdDev);
+
+       ctx.write(key, result);
+   }
+ 
+}

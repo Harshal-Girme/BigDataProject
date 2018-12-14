@@ -1,0 +1,13 @@
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+
+public class PutMerge {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Configuration conf = new Configuration();
+		FileSystem hdfs = FileSystem.get(conf);
+		
+	}
+
+}

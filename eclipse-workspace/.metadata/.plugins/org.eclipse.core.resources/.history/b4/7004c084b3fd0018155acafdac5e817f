@@ -1,0 +1,5 @@
+package numberOfFlightsPerAirline.FlightsPerAirline;
+
+public class AirlineMapper {
+
+}

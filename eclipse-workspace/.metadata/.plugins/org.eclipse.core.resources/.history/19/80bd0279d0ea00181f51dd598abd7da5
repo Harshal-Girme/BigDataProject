@@ -1,0 +1,24 @@
+package HW.homework;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.hadoop.io.Writable;
+
+public class NYSEWritable implements Writable{
+	
+	private Date min = new Date();
+	
+	public void write(DataOutput out) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void readFields(DataInput in) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

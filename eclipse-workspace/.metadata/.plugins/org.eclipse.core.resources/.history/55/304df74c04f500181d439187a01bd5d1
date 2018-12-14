@@ -1,0 +1,42 @@
+package HW5.HW5part6;
+
+import java.io.IOException;
+
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SortedMapWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+public class MMedianmapper extends Mapper<Object, Text, IntWritable, SortedMapWritable> {
+	private FloatWritable ratings = new FloatWritable();
+	private IntWritable movieId = new IntWritable();
+	private static final LongWritable ONE = new LongWritable();
+
+	public void map(Object key, Text value, Mapper<Object, Text, IntWritable, SortedMapWritable>.Context context)
+            throws IOException, InterruptedException {
+    
+        String[] values = value.toString().split(",");
+        float rating = 0;
+        int movie = 0;
+        try {
+             rating = Float.valueOf(values[2]);
+             movie = Integer.valueOf(values[1]);
+        } catch (Exception e) {
+            System.out.println("Here is the exception"+e);
+        }
+        
+        if (movie != 0) {
+            ratings.set(rating);
+           movieId.set(movie);    
+           SortedMapWritable outRatings = new SortedMapWritable();
+           outRatings.put(ratings,ONE);
+            try {
+                context.write(movieId,outRatings);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }        }
+        
+    }
+}

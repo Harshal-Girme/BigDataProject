@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/mapreduce/hadoop-mapreduce-client-common-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/hdfs/hadoop-hdfs-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/hdfs/hadoop-hdfs-client-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/usr/local/bin/hadoop-2.8.5/share/hadoop/common/hadoop-common-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/home/harshal/Downloads/hadoop-client-2.2.0.jar"/>
+	<classpathentry kind="lib" path="/home/harshal/Downloads/hadoop-core-1.2.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

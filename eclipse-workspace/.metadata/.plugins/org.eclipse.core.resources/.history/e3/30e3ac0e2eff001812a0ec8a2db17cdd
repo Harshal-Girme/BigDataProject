@@ -1,0 +1,40 @@
+package numberOfFlightsPerAirline.top30;
+
+import java.io.IOException;
+import java.util.TreeMap;
+
+import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+public class Top30Mapper extends Mapper<Object, Text, NullWritable, Text>{
+
+	private TreeMap<String, Integer> repToRecordMap = new TreeMap<String, Integer>();
+
+	@Override
+	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+		
+		String[] row = value.toString().split(",");
+		
+		String listingId = row[1];
+		if(listingId.equals("id")) {
+			return;
+		}
+
+		//int availability365 = Integer.parseInt(row[7]);
+		String active = row[7];
+		repToRecordMap.put(active, new Text(value));
+
+		if (repToRecordMap.size() > 30) {
+			repToRecordMap.remove(repToRecordMap.firstKey());
+		}
+	}
+
+	@Override
+	protected void cleanup(Context context) throws IOException, InterruptedException {
+		for (Text t : repToRecordMap.values()) {
+			context.write(NullWritable.get(), t);
+		}
+	}
+}
+

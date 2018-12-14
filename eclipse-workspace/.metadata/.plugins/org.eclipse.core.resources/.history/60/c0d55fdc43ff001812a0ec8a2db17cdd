@@ -1,0 +1,60 @@
+package numberOfFlightsPerAirline.top30;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+
+public class BusiestSourceAirportsCustomWritable implements Writable, WritableComparable<BusiestSourceAirportsCustomWritable>{
+	private String sourceId;
+	private Float listingCount;
+	
+	public BusiestSourceAirportsCustomWritable() {
+		
+	}
+
+	public BusiestSourceAirportsCustomWritable(String m, Float l) {
+		this.sourceId = m;
+		this.listingCount = l;
+	}
+
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String hostId) {
+		this.sourceId = hostId;
+	}
+
+
+	public Float getListingCount() {
+		return listingCount;
+	}
+
+	public void setListingCount(Float listingCount) {
+		this.listingCount = listingCount;
+	}
+
+	public void write(DataOutput d) throws IOException {
+		d.writeUTF(sourceId);
+		d.writeFloat(listingCount);
+	}
+
+	public void readFields(DataInput di) throws IOException {
+		sourceId = di.readUTF();
+		listingCount = di.readFloat();
+	}
+	
+	public int compareTo(BusiestSourceAirportsCustomWritable o) {
+		return -1 * (listingCount.compareTo(o.listingCount));
+	}
+
+
+	@Override
+	public String toString() {
+		return sourceId + "\t" + listingCount;
+	}
+
+}

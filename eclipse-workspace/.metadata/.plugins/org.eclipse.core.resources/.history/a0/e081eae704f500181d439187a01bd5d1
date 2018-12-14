@@ -1,0 +1,70 @@
+package HW5.HW5part6;
+
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SortedMapWritable;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class MMedianreducer extends Reducer<IntWritable, SortedMapWritable, IntWritable, MedianStdDevTuple> {
+	private MedianStdDevTuple result = new MedianStdDevTuple();
+	private TreeMap<Integer, Long> ratings = new TreeMap<Integer, Long>();
+
+	@SuppressWarnings("rawtypes")
+	protected void reduce(IntWritable key, Iterable<SortedMapWritable> values,
+			Reducer<IntWritable, SortedMapWritable, IntWritable, MedianStdDevTuple>.Context context)
+			throws IOException, InterruptedException {
+		float sum = 0;
+		long totalRatings = 0;
+		ratings.clear();
+		result.setStdDev(0);
+		result.setMedian(0);
+		for (SortedMapWritable v : values) {
+			for (Entry<WritableComparable, Writable> entry : v.entrySet()) {
+				int rating = ((IntWritable) entry.getKey()).get();
+				long count = ((LongWritable) entry.getKey()).get();
+				totalRatings += count;
+				sum += rating * count;
+				Long storedCount = ratings.get(rating);
+				if (storedCount == null) {
+					ratings.put(rating, count);
+				} else {
+					ratings.put(rating, storedCount + count);
+				}
+			}
+		}
+
+		long medianIndex = totalRatings / 2L;
+		long previousRates = 0;
+		long rates = 0;
+		int prevKey = 0;
+
+		for (Entry<Integer, Long> entry : ratings.entrySet()) {
+
+			rates = previousRates + entry.getValue();
+
+			if (previousRates <= medianIndex && medianIndex < rates) {
+				if (totalRatings % 2 == 0 && previousRates == medianIndex) {
+					result.setMedian((float) (entry.getKey() + prevKey) / 2.0f);
+				} else {
+					result.setMedian(entry.getKey());
+				}
+				break;
+			}
+			previousRates = rates;
+			prevKey = entry.getKey();
+		}
+
+		float mean = sum / totalRatings;
+		float sumOfSquares = 0.0f;
+		for (Entry<Integer, Long> entry : ratings.entrySet()) {
+			sumOfSquares += (entry.getKey() - mean) * (entry.getKey() - mean) * entry.getValue();
+		}
+		result.setStdDev((float) Math.sqrt(sumOfSquares) / (totalRatings - 1));
+		context.write(key, result);
+	}
+}

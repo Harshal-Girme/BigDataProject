@@ -1,0 +1,33 @@
+package HW5.HW5part6;
+
+import java.io.IOException;
+import java.util.Map;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SortedMapWritable;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class MCombiner extends Reducer<IntWritable, SortedMapWritable, IntWritable, SortedMapWritable> {
+	@Override
+	   public void reduce(IntWritable key, Iterable<SortedMapWritable> values, Context ctx) throws IOException, InterruptedException{
+	      
+	       SortedMapWritable outValue = new SortedMapWritable();
+	      
+	      for(SortedMapWritable val: values){
+	          for(Map.Entry<WritableComparable, Writable> entry: val.entrySet()){
+	              long count = ((IntWritable)entry.getValue()).get();
+	              LongWritable ratingCountFromTreeMap = (LongWritable)outValue.get(entry.getKey());
+	            if(ratingCountFromTreeMap == null) {
+	              outValue.put(entry.getKey(), new LongWritable(count));
+	            }else {
+	              ratingCountFromTreeMap.set(ratingCountFromTreeMap.get() + count);
+	            }
+	          }
+	          val.clear();
+	        }
+	      ctx.write(key, outValue);
+	   }
+}

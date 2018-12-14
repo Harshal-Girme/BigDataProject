@@ -1,0 +1,23 @@
+package numberOfFlightsPerAirline.FlightsPerAirline;
+
+import java.io.IOException;
+
+import Access.IntWritable;
+import Access.LongWritable;
+import Access.Mapper;
+import Access.Text;
+
+public class AirlineMapper extends Mapper<LongWritable,Text,Text,IntWritable>{
+	private final static IntWritable one = new IntWritable(1);
+	@Override
+	protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, IntWritable>.Context context)
+			throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		String [] fields = value.toString().split(" ");
+		for(String s : fields) {
+			Text t = new Text(s);
+			context.write(t, one);
+			break;
+		}
+	}
+}

@@ -1,0 +1,28 @@
+package numberOfFlightsPerAirline.top30;
+
+import java.io.IOException;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+
+public class BusiestSourceAirportsReducer2 extends Reducer<BusiestSourceAirportsCustomWritable, IntWritable, BusiestSourceAirportsCustomWritable, NullWritable> {
+
+	public static int count = 1;
+
+	@Override
+	protected void reduce(BusiestSourceAirportsCustomWritable key, Iterable<IntWritable> values, Context context)
+			throws IOException, InterruptedException {
+		for (IntWritable value : values) {
+
+			if (count <= 30) {
+				context.write(key, NullWritable.get());
+				count++;
+			} else {
+				break;
+			}
+		}
+	}
+
+}
